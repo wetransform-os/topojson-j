@@ -39,7 +39,7 @@ public class Compress {
 		int primaryLength = aInputData.length*5; 
 		byte[] aOutputData = new byte[primaryLength]; 
 		
-		LZ4UnknownSizeDecompressor decompressor = factory.unknwonSizeDecompressor();
+		LZ4UnknownSizeDecompressor decompressor = factory.unknownSizeDecompressor();
 		int decompressed = decompressor.decompress(aInputData, 
 												   0, aInputData.length, 
 												   aOutputData, 0);
