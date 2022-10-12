@@ -1,11 +1,11 @@
 package json.converter.dbf;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.nio.charset.Charset;
 
-import org.cfb.jdbf.DBFReader;
-import org.cfb.jdbf.JDBFException;
+import com.linuxense.javadbf.DBFReader;
 
 public class DBFExtractor {
 
@@ -13,7 +13,8 @@ public class DBFExtractor {
 		
 		try {
 
-			DBFReader dbfreader = new DBFReader(iFileName);
+			FileInputStream fis = new FileInputStream(iFileName);
+			DBFReader dbfreader = new DBFReader(fis, Charset.forName("ISO8859-1"));
 
 			PrintWriter writer = new PrintWriter(iCSVName);
 			
@@ -22,26 +23,22 @@ public class DBFExtractor {
 				aBuffer.append(dbfreader.getField(i).getName()+(i+1==dbfreader.getFieldCount()?"":","));
 			}
 			writer.println(aBuffer.toString());
-			
-			for(int i = 0; dbfreader.hasNextRecord(); i++)
-			{
+
+			for (int i = 0; i < dbfreader.getRecordCount(); i++) {
 				Object aobj[];
 
 				aBuffer.delete(0, aBuffer.length());
-				
-				aobj = dbfreader.nextRecord(Charset.forName("GBK"));
 
-				for (int j=0; j<aobj.length; j++)
-					aBuffer.append(aobj[j]+(j+1==aobj.length?"":","));
-				
+				aobj = dbfreader.nextRecord();
+
+				for (int j = 0; j < aobj.length; j++)
+					aBuffer.append(aobj[j] + (j + 1 == aobj.length ? "" : ","));
+
 				writer.println(aBuffer.toString());
 			}
 
 			writer.close();
 
-		} catch (JDBFException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
