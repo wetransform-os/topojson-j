@@ -13,6 +13,8 @@ import javax.xml.bind.DatatypeConverter;
 import net.jpountz.lz4.LZ4Compressor;
 import net.jpountz.lz4.LZ4Factory;
 
+import org.opengis.referencing.crs.CoordinateReferenceSystem;
+
 import json.converter.csv.merger.Merger;
 import json.converter.shp.ShpFileReader;
 import json.geojson.FeatureCollection;
@@ -27,8 +29,10 @@ import com.google.gson.Gson;
 
 public class TopojsonApi {
 
-	public static FeatureCollection shpToGeojsonFeatureCollection(String iFileName, String iCoordinateSystem, String[][] iFilter , Merger iMerger) throws IOException {
-		
+	public static FeatureCollection shpToGeojsonFeatureCollection(String iFileName,
+			CoordinateReferenceSystem iCoordinateSystem, String[][] iFilter, Merger iMerger)
+			throws IOException {
+
 		ShpFileReader aReader = new ShpFileReader(iFileName, iCoordinateSystem, iFilter);
 		aReader.mergeWithAssociation(iMerger);
 		aReader.read();
@@ -37,17 +41,19 @@ public class TopojsonApi {
 		return aReader.getGroupRecord();
 		
 	}
-	
-	public static FeatureCollection shpToGeojsonFeatureCollection(String iFileName, String iCoordinateSystem ) throws IOException {
-		
+
+	public static FeatureCollection shpToGeojsonFeatureCollection(String iFileName,
+			CoordinateReferenceSystem iCoordinateSystem) throws IOException {
+
 		ShpFileReader aReader = new ShpFileReader(iFileName, iCoordinateSystem);
 		aReader.read();
 		return aReader.getGroupRecord();
 		
 	}
-	
-	public static Topology shpToTopology(String iFileName, String iCoordinateSystem, String iTopoName ) throws IOException {
-		
+
+	public static Topology shpToTopology(String iFileName,
+			CoordinateReferenceSystem iCoordinateSystem, String iTopoName) throws IOException {
+
 		FeatureCollection aFeat = shpToGeojsonFeatureCollection(iFileName, iCoordinateSystem);
 		
 		List<Entity> aEntities = aFeat.extract();
@@ -79,21 +85,28 @@ public class TopojsonApi {
 		return aJson;
 		
 	}
-	
-	public static String shpToTopojson(String iFileName, String iCoordinateSystem, String iTopoName, int iKink, int iQuantizeDigit, boolean iCompress ) throws IOException {
-		
-		Topology aTopology = shpToTopology(iFileName, iCoordinateSystem, iTopoName );
-		
-		if (iKink>0)aTopology.simplify(iKink);
-		if (iQuantizeDigit>0) aTopology.quantize(iQuantizeDigit);
-		
-		return getJson(aTopology,iCompress);
-		
+
+	public static String shpToTopojson(String iFileName,
+			CoordinateReferenceSystem iCoordinateSystem, String iTopoName, int iKink,
+			int iQuantizeDigit, boolean iCompress) throws IOException {
+
+		Topology aTopology = shpToTopology(iFileName, iCoordinateSystem, iTopoName);
+
+		if (iKink > 0)
+			aTopology.simplify(iKink);
+		if (iQuantizeDigit > 0)
+			aTopology.quantize(iQuantizeDigit);
+
+		return getJson(aTopology, iCompress);
+
 	}
-	
-	public static void shpToTopojsonFile(String iFileNameInput, String iCoordinateSystem,  String iFileOuput, String iTopoName, int iKink, int iQuantizeDigit, boolean iCompress ) throws IOException {
-		
-		String aJson = shpToTopojson( iFileNameInput , iCoordinateSystem,  iTopoName, iKink,  iQuantizeDigit, iCompress );
+
+	public static void shpToTopojsonFile(String iFileNameInput,
+			CoordinateReferenceSystem iCoordinateSystem, String iFileOuput, String iTopoName,
+			int iKink, int iQuantizeDigit, boolean iCompress) throws IOException {
+
+		String aJson = shpToTopojson(iFileNameInput, iCoordinateSystem, iTopoName, iKink,
+				iQuantizeDigit, iCompress);
 		Toolbox.writeFile(iFileOuput, aJson);
 		
 	}

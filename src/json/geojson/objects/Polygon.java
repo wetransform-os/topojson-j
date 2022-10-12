@@ -2,17 +2,13 @@ package json.geojson.objects;
 
 
 import java.awt.Color;
-import java.awt.geom.Point2D;
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 import java.util.Vector;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.opengis.referencing.crs.CoordinateReferenceSystem;
 
 import json.algorithm.DouglasPeucker;
 import json.graphic.Colorifier;
@@ -22,9 +18,6 @@ import json.topojson.algorithm.ArcMap;
 import json.topojson.geom.Object;
 import json.topojson.geom.sub.Entity;
 import json.topojson.geom.sub.Ring;
-
-import com.jhlabs.map.proj.Projection;
-import com.jhlabs.map.proj.ProjectionFactory;
 
 
 public class Polygon extends Shape {
@@ -55,11 +48,11 @@ public class Polygon extends Shape {
 		
 		_entities = new Vector<Entity>();
 	}
-	
-	public static Polygon readPolygon(DataInputStream iStream){
-	
-		double Xmin = 0, Ymin = 0, Xmax = 0, Ymax = 0 ;
-		
+
+	public static Polygon readPolygon(DataInputStream iStream, CoordinateReferenceSystem crs) {
+
+		double Xmin = 0, Ymin = 0, Xmax = 0, Ymax = 0;
+
 		byte[] aIBuffer = new byte[4];
 		byte[] aDBuffer = new byte[8];
 		
@@ -117,12 +110,12 @@ public class Polygon extends Shape {
 				iStream.read(aIBuffer);
 				parts[i] = Toolbox.little2big(aIBuffer);
 			}
-			
-			for (int i=0; i<aNumPoints; i++) {
-				
-				points[i] = Point.readPoint(iStream);
-				if (i==0) {
-				
+
+			for (int i = 0; i < aNumPoints; i++) {
+
+				points[i] = Point.readPoint(iStream, crs);
+				if (i == 0) {
+
 					Xmax = points[i].x;
 					Ymax = points[i].y;
 					Xmin = points[i].x;

@@ -1,17 +1,14 @@
 package json.converter.shp;
 
-
-import java.awt.Color;
 import java.awt.geom.Point2D;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.Map.Entry;
 import java.util.regex.Pattern;
+
+import org.opengis.referencing.crs.CoordinateReferenceSystem;
 
 import json.converter.csv.CSVReader;
 import json.converter.csv.merger.Merger;
@@ -46,6 +43,7 @@ public class ShpFileReader {
 	DataInputStream _stream;
 	String[][] _filter; // Use to filter features in a SHP file: list of  key regexp to match according to the DBF file
 	CSVReader _assoc_reader;
+	CoordinateReferenceSystem sourceCrs;
 
 	/*
 	int _shapeType;
@@ -59,23 +57,23 @@ public class ShpFileReader {
 	 */
 	FeatureCollection _groupRecord;
 
-	public ShpFileReader(String iFileName, String iCoordinateSystem){
+	public ShpFileReader(String iFileName, CoordinateReferenceSystem sourceCrs) {
 
 		_filename = iFileName;
 
-		Toolbox.setCoordinateSystem(iCoordinateSystem);
-		
+		this.sourceCrs = sourceCrs;
+
 		readAssociation();
 		
 	}
 
-	public ShpFileReader(String iFileName, String iCoordinateSystem, String[][] iFilter) {
+	public ShpFileReader(String iFileName, CoordinateReferenceSystem sourceCrs,
+			String[][] iFilter) {
 
 		_filename = iFileName;
+		this.sourceCrs = sourceCrs;
 		_filter = iFilter;
 
-		Toolbox.setCoordinateSystem(iCoordinateSystem);
-		
 		readAssociation();
 		
 	}
@@ -167,8 +165,8 @@ public class ShpFileReader {
 			_stream.read(aDBuffer);
 			_groupRecord._bnd.miny = Toolbox.getDoubleFromByte(aDBuffer);
 
-
-			Point2D.Double aRes = Toolbox.convertLatLong(_groupRecord._bnd.minx, _groupRecord._bnd.miny);
+			Point2D.Double aRes = Toolbox.convertLatLong(_groupRecord._bnd.minx,
+					_groupRecord._bnd.miny, this.sourceCrs);
 			_groupRecord._bnd.minx = aRes.x;
 			_groupRecord._bnd.miny = aRes.y;
 
@@ -181,8 +179,8 @@ public class ShpFileReader {
 			_stream.read(aDBuffer);
 			_groupRecord._bnd.maxy = Toolbox.getDoubleFromByte(aDBuffer);
 
-
-			aRes = Toolbox.convertLatLong(_groupRecord._bnd.maxx, _groupRecord._bnd.maxy);
+			aRes = Toolbox.convertLatLong(_groupRecord._bnd.maxx, _groupRecord._bnd.maxy,
+					this.sourceCrs);
 			_groupRecord._bnd.maxx = aRes.x;
 			_groupRecord._bnd.maxy = aRes.y;
 
@@ -289,9 +287,9 @@ public class ShpFileReader {
 	
 				Shape aReadShape = null;
 				switch (aShapeType) {
-					case 5 : { //Polygons
-						aReadShape = Polygon.readPolygon(_stream);
-					}
+				case 5: { // Polygons
+					aReadShape = Polygon.readPolygon(_stream, this.sourceCrs);
+				}
 				}
 				//System.out.println("Pos 2: "+_stream.available());
 				//System.out.println("Readen: "+(a1-_stream.available()));
