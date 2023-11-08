@@ -8,24 +8,19 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.Vector;
-import java.util.regex.Pattern;
-
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import com.google.gson.JsonNull;
 
 import json.tools.EntryImp;
 
@@ -78,44 +73,66 @@ public class CSVReader  implements SortedMap<Integer, String[] > {
 
 	}
 
-	public void readData(){
+	public void readData() {
+        try {
+            int count = 0;
+            String line;
 
-		try {
-			int count = 0;
-			String line;
-			while ((line = _reader.readLine()) != null) {
+            while ((line = _reader.readLine()) != null) {
+                String[] data;
 
-				String[] data;
-				try {
-					
-					data = CSVReader.readCSVLine(line);
+                try {
+                    data = cleanAndSplitLine(line);
 
-					if (count==0 && _header.size()==0) {
-						for (int i=0; i<data.length;i++) {
-							_header.add("c"+i);
-						}
-					}
+                    if (count == 0 && _header.isEmpty()) {
+                        initializeHeader(data.length);
+                    }
 
-					_data.put(count,data);
+                    _data.put(count, data);
 
+                } catch (IOException e) {
+                    // Handle the exception appropriately
+                    e.printStackTrace();
+                }
+                count++;
+            }
 
-				} catch (Exception e) { // Doing best effort
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+            _reader.close();
+        } catch (IOException e) {
+            // Handle the exception appropriately
+            e.printStackTrace();
+        }
+    }
 
-				count++;
+    private String[] cleanAndSplitLine(String line) throws IOException {
+        String[] data = line.split(",");
+        String[] cleandata = new String[data.length];
 
-			}
+        for (int i = 0; i < data.length; i++) {
+            String string = data[i];
 
-			_reader.close();
+            if (string.contains("\u0000")) {
+                cleandata[i] = cleanNullString(string);
+            } else if (string.contains("Sun Nov 30 00:00:00 CET 2")) {
+                cleandata[i] = "null";
+            } else {
+                cleandata[i] = string;
+            }
+        }
 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        return cleandata;
+    }
 
-	}
+    private String cleanNullString(String input) {
+        String cleanstring = input.replaceAll("\u0000", "");
+        return cleanstring.isEmpty() ? "null" : cleanstring;
+    }
+
+    private void initializeHeader(int length) {
+        for (int i = 0; i < length; i++) {
+            _header.add("c" + i);
+        }
+    }
 
 	public void read(boolean readHeader){
 
@@ -447,6 +464,4 @@ public class CSVReader  implements SortedMap<Integer, String[] > {
 
 	}
 
-
 }
-

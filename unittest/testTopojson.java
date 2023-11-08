@@ -3,10 +3,10 @@ import static org.junit.Assert.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import javax.imageio.ImageIO;
-
 
 import json.converter.csv.CSVReader;
 import json.converter.shp.ShpFileReader;
@@ -23,6 +23,13 @@ import org.junit.Test;
 
 import com.google.gson.Gson;
 
+import org.geotools.referencing.CRS;
+import org.junit.Ignore;
+
+import org.opengis.referencing.FactoryException;
+import org.opengis.referencing.crs.CoordinateReferenceSystem;
+
+import java.nio.charset.Charset;
 
 
 public class testTopojson {
@@ -39,7 +46,19 @@ public class testTopojson {
 					4, 
 					true);		
 		}
+	}
+	
+	@Test
+	public void testShpFromHale() throws IOException, FactoryException  {
+	
+        String crsSpec = "EPSG:4326";
 
+        // Decode the text using UTF-8 encoding (or the appropriate encoding)
+        byte[] crsBytes = crsSpec.getBytes(StandardCharsets.UTF_8);
+        String decodedCRS = new String(crsBytes, StandardCharsets.UTF_8);
+      
+		TopojsonApi.shpToTopojsonFile("./data/example.shp", CRS.decode(decodedCRS), "./web/topojson_hale.json",
+				"Topology", 0, 4, false);
 	}
 	
 	@Test
