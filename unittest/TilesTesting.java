@@ -14,6 +14,8 @@ import json.graphic.DisplayListener;
 import json.topojson.algorithm.ArcMap;
 import json.topojson.api.TopojsonApi;
 import json.topojson.topology.Topology;
+import org.geotools.referencing.CRS;
+import org.opengis.referencing.FactoryException;
 
 
 public class TilesTesting implements DisplayListener {
@@ -42,7 +44,7 @@ public class TilesTesting implements DisplayListener {
 
 			CSVReader aExtReader = new CSVReader("./data/nhgis0002_ts_tract.csv");
 			aExtReader.read();
-			ShpFileReader aReader = new ShpFileReader("./data/US_tract_2010.shp", "esri:102003",  aFilter);
+			ShpFileReader aReader = new ShpFileReader("./data/US_tract_2010.shp", CRS.decode("esri:102003"),  aFilter);
 			aReader.mergeWithAssociation("GISJOIN",aExtReader, "NHGISCODE");
 			aReader.read();
 
@@ -72,7 +74,7 @@ public class TilesTesting implements DisplayListener {
 
 			view();
 
-		} catch (IOException e) {
+		} catch (IOException | FactoryException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

@@ -6,6 +6,8 @@ import json.graphic.Display;
 import json.topojson.algorithm.ArcMap;
 import json.topojson.api.TopojsonApi;
 import json.topojson.topology.Topology;
+import org.geotools.referencing.CRS;
+import org.opengis.referencing.FactoryException;
 
 
 public class TilesExplosion {
@@ -28,7 +30,7 @@ public class TilesExplosion {
 	
 		try {
 			
-			FeatureCollection aFeat = TopojsonApi.shpToGeojsonFeatureCollection("./data/MA.shp", "esri:102003");
+			FeatureCollection aFeat = TopojsonApi.shpToGeojsonFeatureCollection("./data/MA.shp", CRS.decode("esri:102003"));
 			
 			aFeat._bnd.scale(1.9);
 			_display.setBound(aFeat._bnd);
@@ -72,7 +74,7 @@ public class TilesExplosion {
 				
 			}
 			
-		} catch (IOException e) {
+		} catch (IOException | FactoryException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

@@ -10,6 +10,8 @@ import json.graphic.Display;
 import json.topojson.algorithm.ArcMap;
 import json.topojson.api.TopojsonApi;
 import json.topojson.topology.Topology;
+import org.geotools.referencing.CRS;
+import org.opengis.referencing.FactoryException;
 
 
 public class testFillPolygon {
@@ -18,7 +20,7 @@ public class testFillPolygon {
 	 * @param args
 	 * @throws IOException 
 	 */
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, FactoryException {
 		
 		Display aDisplay = new Display(800, 800);
 		aDisplay.start();
@@ -31,7 +33,7 @@ public class testFillPolygon {
 		Merger aMerger = new Merger();
 		aMerger.addStep(new MergeStep("GISJOIN","%s","./data/nhgis0002_ts_tract.csv", "NHGISCODE","%s"));
 		
-		FeatureCollection aFeat = TopojsonApi.shpToGeojsonFeatureCollection("./data/US_tract_2010.shp", "esri:102003", aFilter,  aMerger);
+		FeatureCollection aFeat = TopojsonApi.shpToGeojsonFeatureCollection("./data/US_tract_2010.shp", CRS.decode("esri:102003"), aFilter,  aMerger);
 		
 		ArcMap aMap = TopojsonApi.joinCollection(aFeat);
 		

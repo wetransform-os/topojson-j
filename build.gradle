@@ -28,6 +28,8 @@ dependencies {
     implementation 'org.geotools:gt-opengis:21.0'
     implementation 'org.geotools:gt-geometry:21.0'
     implementation 'org.geotools:gt-referencing:21.0'
+
+    testImplementation 'junit:junit:4.13'
 }
 
 java {
@@ -38,6 +40,11 @@ sourceSets {
     main {
         java {
             srcDirs 'src'
+        }
+    }
+    test {
+        java {
+            srcDirs 'unittest'
         }
     }
 }
