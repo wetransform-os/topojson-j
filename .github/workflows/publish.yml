@@ -1,0 +1,14 @@
+name: Publish
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch: {}
+
+jobs:
+  publish:
+    uses: wetransform/gha-workflows/.github/workflows/gradle-library-publish.yml@master
+    with:
+      java-version: 8
+    secrets: inherit

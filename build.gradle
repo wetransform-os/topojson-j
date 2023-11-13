@@ -55,6 +55,18 @@ publishing {
             from components.java
         }
     }
+
+    repositories {
+        maven {
+            url = project.version.endsWith('-SNAPSHOT') ?
+                'https://artifactory.wetransform.to/artifactory/libs-snapshot-local' :
+                'https://artifactory.wetransform.to/artifactory/libs-release-local'
+            credentials {
+                username project.hasProperty('wetfArtifactoryUser') ? wetfArtifactoryUser : ''
+                password project.hasProperty('wetfArtifactoryPassword') ? wetfArtifactoryPassword : ''
+            }
+        }
+    }
 }
 
 wrapper {
