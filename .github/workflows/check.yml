@@ -10,4 +10,3 @@ jobs:
     uses: wetransform/gha-workflows/.github/workflows/gradle-library-check.yml@master
     with:
       java-version: 8
-    secrets: inherit
