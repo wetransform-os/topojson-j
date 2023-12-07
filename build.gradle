@@ -23,13 +23,18 @@ dependencies {
     implementation 'org.apache.commons:commons-lang3:3.12.0' // Apache 2.0
 
     // GeoTools (LGPL 2.1)
-    implementation 'org.geotools:geotools:21.0'
-    implementation 'org.geotools:gt-epsg-hsql:21.0'
-    implementation 'org.geotools:gt-opengis:21.0'
-    implementation 'org.geotools:gt-geometry:21.0'
-    implementation 'org.geotools:gt-referencing:21.0'
+    implementation 'org.geotools:gt-main:29.1'
+    implementation 'org.geotools:gt-epsg-hsql:29.1'
+    implementation 'org.geotools:gt-opengis:29.1'
+//    implementation 'org.geotools:gt-geometry:24.2'
+    implementation 'org.geotools:gt-referencing:29.1'
 
+	implementation 'javax.xml.bind:jaxb-api:2.3.1'
+    implementation 'com.sun.xml.bind:jaxb-core:2.3.0.1'
+    implementation 'com.sun.xml.bind:jaxb-impl:2.3.1'
+	
     testImplementation 'junit:junit:4.13'
+	
 }
 
 java {
@@ -70,6 +75,6 @@ publishing {
 }
 
 wrapper {
-    gradleVersion = '7.5.1'
+    gradleVersion = '8.4'
     distributionType = Wrapper.DistributionType.ALL
 }
