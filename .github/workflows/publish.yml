@@ -10,7 +10,7 @@ jobs:
   publish:
     uses: wetransform/gha-workflows/.github/workflows/gradle-library-publish.yml@master
     with:
-      java-version: 8
+      java-version: 17
     secrets:
       # need to pass secrets explicitly because shared workflow comes from different org
       SLACK_NOTIFICATIONS_BOT_TOKEN: ${{ secrets.SLACK_NOTIFICATIONS_BOT_TOKEN }}
