@@ -1,0 +1,11 @@
+---
+# Repository configuration for wetransform managed repositories
+
+# Reference presets that should apply to this repository
+presets:
+  - gradle-library
+  - workflows-default
+
+workflows:
+  presets:
+    - java-17
