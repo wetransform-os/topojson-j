@@ -27,7 +27,7 @@ dependencies {
     implementation 'org.geotools:gt-epsg-hsql:29.6'
     implementation 'org.geotools:gt-opengis:29.6'
 //    implementation 'org.geotools:gt-geometry:24.2'
-    implementation 'org.geotools:gt-referencing:29.6'
+    implementation 'org.geotools:gt-referencing:31.3'
 
 	implementation 'javax.xml.bind:jaxb-api:2.3.1'
     implementation 'com.sun.xml.bind:jaxb-core:2.3.0.1'
