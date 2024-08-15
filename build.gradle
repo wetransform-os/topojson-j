@@ -30,7 +30,7 @@ dependencies {
     implementation 'org.geotools:gt-referencing:29.6'
 
 	implementation 'javax.xml.bind:jaxb-api:2.3.1'
-    implementation 'com.sun.xml.bind:jaxb-core:2.3.0.1'
+    implementation 'com.sun.xml.bind:jaxb-core:4.0.5'
     implementation 'com.sun.xml.bind:jaxb-impl:2.3.9'
 	
     testImplementation 'junit:junit:4.13.2'
