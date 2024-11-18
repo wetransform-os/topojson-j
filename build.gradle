@@ -24,7 +24,7 @@ dependencies {
 
     // GeoTools (LGPL 2.1)
     implementation 'org.geotools:gt-main:29.6'
-    implementation 'org.geotools:gt-epsg-hsql:29.6'
+    implementation 'org.geotools:gt-epsg-hsql:32.1'
     implementation 'org.geotools:gt-opengis:29.6'
 //    implementation 'org.geotools:gt-geometry:24.2'
     implementation 'org.geotools:gt-referencing:29.6'
