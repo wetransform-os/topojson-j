@@ -103,8 +103,8 @@ public class FeatureCollection extends Shape {
 			}
 		}
 
-		aGroupRecord._meta_properties.put("x", new Integer(iTileE.x));
-		aGroupRecord._meta_properties.put("y", new Integer(iTileE.y));	
+		aGroupRecord._meta_properties.put("x", Integer.valueOf(iTileE.x));
+		aGroupRecord._meta_properties.put("y", Integer.valueOf(iTileE.y));	
 		
 		return aGroupRecord;
 		
@@ -253,8 +253,8 @@ public class FeatureCollection extends Shape {
 				}
 
 				aDividedResult[i][j] = aGroupRecord;
-				aGroupRecord._meta_properties.put("x", new Integer(x));
-				aGroupRecord._meta_properties.put("y", new Integer(y));
+				aGroupRecord._meta_properties.put("x", Integer.valueOf(x));
+				aGroupRecord._meta_properties.put("y", Integer.valueOf(y));
 
 			}
 

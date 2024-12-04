@@ -105,8 +105,8 @@ public class Topology {
 					
 			for (int i=0; i<aArc._points.length; i++){
 				arcs[na][i] = new java.lang.Object[2];
-				arcs[na][i][0] = new Double( aArc._points[i]._x );
-				arcs[na][i][1] = new Double( aArc._points[i]._y );
+				arcs[na][i][0] = Double.valueOf( aArc._points[i]._x );
+				arcs[na][i][1] = Double.valueOf( aArc._points[i]._y );
 			}
 			
 			na++;
@@ -180,8 +180,8 @@ public class Topology {
 			double scale = Math.pow(10, iPowTen);
 			for (java.lang.Object[][] arc:arcs){
 				for (java.lang.Object[] position:arc){
-					position[0] = new Integer((int) (((Double) position[0] - aX)*scale)); 
-					position[1] = new Integer((int) (((Double) position[1] - aY)*scale));
+					position[0] = Integer.valueOf((int) (((Double) position[0] - aX)*scale)); 
+					position[1] = Integer.valueOf((int) (((Double) position[1] - aY)*scale));
 					n++;
 				}
 			}
