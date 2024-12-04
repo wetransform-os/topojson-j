@@ -59,7 +59,7 @@ public class CensusColorifier extends  Colorifier {
 
 						if (toconvert!=null) {
 							try {
-								aArrayProp.add(new Double((String) toconvert));
+								aArrayProp.add(Double.valueOf((String) toconvert));
 							} catch (java.lang.NumberFormatException e){
 								// Unable to decode this string
 							}
@@ -98,7 +98,7 @@ public class CensusColorifier extends  Colorifier {
 			
 			try {
 			
-				double value = new Double((String) aProp.get(_param));
+				double value = Double.valueOf((String) aProp.get(_param));
 				
 				for (int i=0;i<Colors.length; i++) {
 					if ((_ranges[i]<=value) && (_ranges[i+1]>value)){

@@ -303,7 +303,7 @@ public class ShpFileReader {
 					}
 				}
 				
-				_groupRecord._shapes.put(new Integer(aRecordNumber), aFeature);
+				_groupRecord._shapes.put(Integer.valueOf(aRecordNumber), aFeature);
 				
 			} else {
 				

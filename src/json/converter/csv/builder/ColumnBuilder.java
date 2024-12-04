@@ -35,7 +35,7 @@ public class ColumnBuilder {
 				
 				String aVal =  iRow[_key];
 				switch (_type) {
-					case INTEGER: return String.format(_format,new Integer(aVal.equals("")?"0":aVal)); 
+					case INTEGER: return String.format(_format,Integer.valueOf(aVal.equals("")?"0":aVal)); 
 					case STRING: return String.format(_format,aVal); 
 				}
 				return "";
