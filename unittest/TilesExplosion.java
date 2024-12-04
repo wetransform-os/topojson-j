@@ -7,7 +7,7 @@ import json.topojson.algorithm.ArcMap;
 import json.topojson.api.TopojsonApi;
 import json.topojson.topology.Topology;
 import org.geotools.referencing.CRS;
-import org.opengis.referencing.FactoryException;
+import org.geotools.api.referencing.FactoryException;
 
 
 public class TilesExplosion {

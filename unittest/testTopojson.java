@@ -24,7 +24,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import com.google.gson.Gson;
-import org.opengis.referencing.FactoryException;
+import org.geotools.api.referencing.FactoryException;
 
 
 @Ignore("Not working because reference systems cannot be resolved")
