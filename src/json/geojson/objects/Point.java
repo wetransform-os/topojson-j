@@ -5,7 +5,7 @@ import java.awt.geom.Point2D;
 import java.io.DataInputStream;
 import java.io.IOException;
 
-import org.opengis.referencing.crs.CoordinateReferenceSystem;
+import org.geotools.api.referencing.crs.CoordinateReferenceSystem;
 
 import json.graphic.Colorifier;
 import json.graphic.Display;

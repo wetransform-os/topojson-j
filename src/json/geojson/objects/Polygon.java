@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Vector;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.opengis.referencing.crs.CoordinateReferenceSystem;
+import org.geotools.api.referencing.crs.CoordinateReferenceSystem;
 
 import json.algorithm.DouglasPeucker;
 import json.graphic.Colorifier;
