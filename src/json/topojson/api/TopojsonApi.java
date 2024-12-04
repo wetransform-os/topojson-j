@@ -1,24 +1,15 @@
 package json.topojson.api;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.TreeSet;
-
-import javax.xml.bind.DatatypeConverter;
-
-import net.jpountz.lz4.LZ4Compressor;
-import net.jpountz.lz4.LZ4Factory;
 
 import org.geotools.api.referencing.crs.CoordinateReferenceSystem;
 
 import json.converter.csv.merger.Merger;
 import json.converter.shp.ShpFileReader;
 import json.geojson.FeatureCollection;
-import json.geojson.objects.Bounding;
 import json.tools.Compress;
 import json.tools.Toolbox;
 import json.topojson.algorithm.ArcMap;

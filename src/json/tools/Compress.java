@@ -2,10 +2,7 @@ package json.tools;
 
 import java.nio.charset.StandardCharsets;
 
-import javax.xml.bind.DatatypeConverter;
-
 import net.jpountz.lz4.LZ4Compressor;
-import net.jpountz.lz4.LZ4Decompressor;
 import net.jpountz.lz4.LZ4Factory;
 import net.jpountz.lz4.LZ4UnknownSizeDecompressor;
 
@@ -25,14 +22,14 @@ public class Compress {
 		byte[] compressedFinal = new byte[compressedLength];
 		System.arraycopy(compressed, 0, compressedFinal, 0, compressedLength);
 		
-		return DatatypeConverter.printBase64Binary(compressedFinal);
+		return java.util.Base64.getEncoder().encodeToString(compressedFinal);
 		
 	}
 	
 	public static String decompressB64(String iStr){
 		
 	
-		byte[] aInputData = DatatypeConverter.parseBase64Binary(iStr);
+		byte[] aInputData = java.util.Base64.getDecoder().decode(iStr);
 		
 		LZ4Factory factory = LZ4Factory.fastestInstance();
 		
