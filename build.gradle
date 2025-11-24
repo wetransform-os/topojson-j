@@ -20,7 +20,7 @@ repositories {
 }
 
 ext {
-    geotoolsVersion = '32.1'
+    geotoolsVersion = '34.1'
 }
 
 dependencies {
