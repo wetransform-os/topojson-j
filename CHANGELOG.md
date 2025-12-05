@@ -1,3 +1,11 @@
+## [2.0.1](https://github.com/wetransform-os/topojson-j/compare/v2.0.0...v2.0.1) (2025-12-05)
+
+### Bug Fixes
+
+* **deps:** change lz4-java group to avoid Gradle error ([f5221cb](https://github.com/wetransform-os/topojson-j/commit/f5221cb45a25cbc714d475b1fe7c0fddd20bb3fd))
+* **deps:** update dependency at.yawk.lz4:lz4-java to v1.10.0 ([3befd24](https://github.com/wetransform-os/topojson-j/commit/3befd246bb7fed69ea559d511a683146ff761087))
+* **deps:** update gradle non-major dependencies ([4038985](https://github.com/wetransform-os/topojson-j/commit/4038985a96b928e37a27eb3bec6d42d0d83adebd))
+
 ## [2.0.0](https://github.com/wetransform-os/topojson-j/compare/v1.1.0...v2.0.0) (2024-12-04)
 
 ### ⚠ BREAKING CHANGES
