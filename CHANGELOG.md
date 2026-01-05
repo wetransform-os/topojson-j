@@ -1,3 +1,9 @@
+## [2.0.2](https://github.com/wetransform-os/topojson-j/compare/v2.0.1...v2.0.2) (2026-01-05)
+
+### Bug Fixes
+
+* **deps:** update dependency at.yawk.lz4:lz4-java to v1.10.2 ([85a2ae3](https://github.com/wetransform-os/topojson-j/commit/85a2ae365d43fca2d73d6686e450cbc3e7b4ff1c))
+
 ## [2.0.1](https://github.com/wetransform-os/topojson-j/compare/v2.0.0...v2.0.1) (2025-12-05)
 
 ### Bug Fixes
